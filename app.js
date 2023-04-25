@@ -2,11 +2,11 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const mongoose=require('mongoose')
 const errorController = require('./controllers/error');
 // const sequelize = require('./util/database');
 // const Product = require('./models/product');
-const User = require('./models/user');
+// const User = require('./models/user');
 // const Cart = require('./models/cart');
 // const CartItem = require('./models/cart-item');
 // const Order = require('./models/order');
@@ -23,15 +23,15 @@ const shopRoutes = require('./routes/shop');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res, next) => {
-  User.findById('6441225d291dc4fc654b86d1')
-    .then(user => {
-      req.user =new User(user.name,user.email,user.cart,user._id)
-      next();
-    })
-    .catch(err => console.log(err));
+// app.use((req, res, next) => {
+//   User.findById('6441225d291dc4fc654b86d1')
+//     .then(user => {
+//       req.user =new User(user.name,user.email,user.cart,user._id)
+//       next();
+//     })
+//     .catch(err => console.log(err));
  
-});
+// });
 
 
 app.use('/admin',adminRoutes)
@@ -48,8 +48,8 @@ app.use(errorController.get404);
 // User.hasMany(Order);
 // Order.belongsToMany(Product, { through: OrderItem });
 
-mongoConnect(()=>{
- 
-  
+mongoose.connect('mongodb+srv://ashutoshballawar:ashutoshballawar@cluster0.cxidpz2.mongodb.net/shop?retryWrites=true&w=majority').then(result=>{
   app.listen(3000)
+}).catch(err=>{
+  console.log(err)
 })
