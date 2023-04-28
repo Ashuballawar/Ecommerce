@@ -24,6 +24,10 @@ const productsSchema=new Schema({
     ref:'User',
     required:true
   }
+},
+{
+  timestamps: true,
+  toJSON: {virtuals: true}
 });
 
 module.exports=mongoose.model('Product',productsSchema)
