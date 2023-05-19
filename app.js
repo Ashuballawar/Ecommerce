@@ -1,5 +1,5 @@
 const path = require('path');
-
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose=require('mongoose')
@@ -38,7 +38,7 @@ app.use(errorController.get404);
 
 
 
-mongoose.connect('mongodb+srv://ashutoshballawar:ashutoshballawar@cluster0.cxidpz2.mongodb.net/shop?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGODB_STRING)
 .then(result=>{
   User.findOne().then(user=>{
     if(!user){
