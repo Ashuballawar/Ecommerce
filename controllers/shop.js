@@ -9,7 +9,7 @@ exports.getProducts = (req, res, next) => {
         prods: products,
         pageTitle: 'All Products',
         path: '/products'
-      });
+      }); 
     })
     .catch(err => {
       console.log(err);
